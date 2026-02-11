@@ -35,18 +35,12 @@ const HeroSection = () => {
           students and rooted in timeless Indian tradition.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex items-center justify-center">
           <a
             href="#donate"
             className="bg-primary text-primary-foreground px-8 py-3.5 rounded-md font-medium text-sm tracking-wide hover:opacity-90 transition-opacity shadow-lg"
           >
             Support This Sacred Initiative
-          </a>
-          <a
-            href="#donate"
-            className="border border-primary text-primary px-8 py-3.5 rounded-md font-medium text-sm tracking-wide hover:bg-primary/5 transition-colors"
-          >
-            Contribute Now
           </a>
         </div>
       </motion.div>

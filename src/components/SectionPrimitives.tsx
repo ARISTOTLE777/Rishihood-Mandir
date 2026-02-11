@@ -25,6 +25,54 @@ export const FadeIn = ({ children, delay = 0, className = "" }: FadeInProps) => 
   );
 };
 
+interface SlideInProps extends FadeInProps {
+  direction?: "left" | "right" | "up" | "down";
+}
+
+export const SlideIn = ({ children, delay = 0, className = "", direction = "up" }: SlideInProps) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const getInitial = () => {
+    switch (direction) {
+      case "left": return { opacity: 0, x: -50 };
+      case "right": return { opacity: 0, x: 50 };
+      case "up": return { opacity: 0, y: 50 };
+      case "down": return { opacity: 0, y: -50 };
+      default: return { opacity: 0, y: 50 };
+    }
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={getInitial()}
+      animate={isInView ? { opacity: 1, x: 0, y: 0 } : getInitial()}
+      transition={{ duration: 0.8, delay, ease: "easeOut" }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+export const ScaleIn = ({ children, delay = 0, className = "" }: FadeInProps) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+      transition={{ duration: 0.6, delay, ease: "easeOut" }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
 interface SectionProps {
   id: string;
   children: ReactNode;

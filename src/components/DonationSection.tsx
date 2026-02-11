@@ -1,7 +1,14 @@
 import { useState } from "react";
-import { FadeIn, Section, SectionHeading, Divider } from "./SectionPrimitives";
+import { FadeIn, Section, SectionHeading, Divider, ScaleIn, SlideIn } from "./SectionPrimitives";
+import { motion } from "framer-motion";
 
 const presetAmounts = [501, 1100, 2100, 5100, 11000, 21000];
+
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
 
 const DonationSection = () => {
   const [amount, setAmount] = useState("");
@@ -13,7 +20,30 @@ const DonationSection = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!amount || !name || !email) return;
-    setSubmitted(true);
+
+    const options = {
+      key: "YOUR_RAZORPAY_KEY_ID", // Replace with your actual Razorpay Key ID
+      amount: Number(amount) * 100, // Amount in paise
+      currency: "INR",
+      name: "Rishihood Temple",
+      description: "Donation for Shiva Temple",
+      image: "https://rishihood.edu.in/wp-content/uploads/2020/08/Rishihood-University-Logo.png", // Optional: Add a logo url here
+      handler: function (response: any) {
+        console.log("Payment Successful", response);
+        setSubmitted(true);
+      },
+      prefill: {
+        name: name,
+        email: email,
+        contact: "" // Optional: Add contact number field if needed
+      },
+      theme: {
+        color: "#d97706" // Matches the amber/gold theme
+      }
+    };
+
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
   };
 
   if (submitted) {
@@ -67,19 +97,22 @@ const DonationSection = () => {
               Select Amount (₹)
             </label>
             <div className="grid grid-cols-3 gap-2">
-              {presetAmounts.map((a) => (
-                <button
+              {presetAmounts.map((a, i) => (
+                <motion.button
                   key={a}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 + i * 0.05, duration: 0.5 }}
                   type="button"
                   onClick={() => setAmount(String(a))}
-                  className={`py-2.5 rounded-md text-sm font-medium border transition-colors ${
-                    amount === String(a)
-                      ? "bg-primary text-primary-foreground border-primary"
-                      : "bg-background border-border text-foreground/70 hover:border-primary/40"
-                  }`}
+                  className={`py-2.5 rounded-md text-sm font-medium border transition-all hover:scale-105 hover:-translate-y-1 hover:shadow-lg active:scale-95 ${amount === String(a)
+                    ? "bg-primary text-primary-foreground border-primary shadow-md"
+                    : "bg-background border-border text-foreground/70 hover:border-primary/40"
+                    }`}
                 >
                   ₹{a.toLocaleString("en-IN")}
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>

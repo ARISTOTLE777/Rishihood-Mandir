@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import logo from "@/assets/logo1.png";
 
 const navLinks = [
   { label: "Home", href: "#hero" },
   { label: "Vision", href: "#about" },
   { label: "Architecture", href: "#architecture" },
   { label: "Students", href: "#origin" },
-  { label: "Donate", href: "#donate" },
 ];
 
 const Navbar = () => {
@@ -24,13 +24,17 @@ const Navbar = () => {
       initial={{ y: -80 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/95 backdrop-blur-sm shadow-sm" : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-background/95 backdrop-blur-sm shadow-sm" : "bg-transparent"
+        }`}
     >
+
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#hero" className="font-heading text-lg font-semibold text-primary tracking-wide">
-          Rishihood Temple
+        <a href="#hero" className="flex items-center gap-2 font-heading text-lg font-semibold text-primary tracking-wide">
+          <img
+            src={logo}
+            alt="Rishihood University Logo"
+            className="h-32 w-auto mix-blend-multiply"
+          />
         </a>
 
         {/* Desktop */}

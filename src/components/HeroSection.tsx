@@ -1,29 +1,8 @@
 import { motion } from "framer-motion";
 import heroBg from "@/assets/hero-bg.jpg";
 
-const ChakraSVG = () => (
-  <svg viewBox="0 0 200 200" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="100" cy="100" r="90" stroke="hsl(var(--primary))" strokeWidth="1.5" opacity="0.5" />
-    <circle cx="100" cy="100" r="70" stroke="hsl(var(--primary))" strokeWidth="1" opacity="0.4" />
-    <circle cx="100" cy="100" r="50" stroke="hsl(var(--primary))" strokeWidth="0.8" opacity="0.3" />
-    {/* Spokes */}
-    {Array.from({ length: 24 }).map((_, i) => {
-      const angle = (i * 15 * Math.PI) / 180;
-      const x1 = 100 + 50 * Math.cos(angle);
-      const y1 = 100 + 50 * Math.sin(angle);
-      const x2 = 100 + 90 * Math.cos(angle);
-      const y2 = 100 + 90 * Math.sin(angle);
-      return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="hsl(var(--primary))" strokeWidth="0.6" opacity="0.35" />;
-    })}
-    {/* Petal shapes */}
-    {Array.from({ length: 12 }).map((_, i) => {
-      const angle = (i * 30 * Math.PI) / 180;
-      const cx = 100 + 80 * Math.cos(angle);
-      const cy = 100 + 80 * Math.sin(angle);
-      return <circle key={`p-${i}`} cx={cx} cy={cy} r="6" stroke="hsl(var(--primary))" strokeWidth="0.8" opacity="0.3" fill="none" />;
-    })}
-  </svg>
-);
+
+
 
 const HeroSection = () => {
   return (
@@ -38,14 +17,7 @@ const HeroSection = () => {
       />
       <div className="absolute inset-0 bg-background/40" />
 
-      {/* Rotating Chakra */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] md:w-[700px] md:h-[700px] pointer-events-none z-[1]"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-      >
-        <ChakraSVG />
-      </motion.div>
+
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
